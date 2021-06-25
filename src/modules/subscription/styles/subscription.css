@@ -62,6 +62,11 @@
   @apply px-2 py-2;
 }
 
+.plan-data {
+  background: rgba(191, 208, 224, 0.2);
+  @apply p-5;
+}
+
 @media only screen and (max-width: 768px) {
   .sub-card {
     width: 100vw;

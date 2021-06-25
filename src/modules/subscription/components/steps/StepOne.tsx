@@ -4,6 +4,7 @@ import SubscriptionPlanCard from "../SubscriptionPlanCard"
 import Select from 'react-select'
 import Loader from "../../../externals/components/Loader"
 import CardHeader from "../CardHeader";
+import PlanData from "../PlanData";
 
 type Props = {
     plans: Array<SubscriptionPlan>
@@ -30,7 +31,7 @@ const StepOne: React.FC<Props> = ({ plans, callback, activePlan, cloudSize, sele
     const handleChange = () => {
         setUpFront(upfrontRef.current!.checked)
     }
-    
+
 
     return (
         <div>
@@ -58,6 +59,9 @@ const StepOne: React.FC<Props> = ({ plans, callback, activePlan, cloudSize, sele
                             <p className="paragraph w-full">Upfront Payment</p>
                             <input ref={upfrontRef} type="checkbox" defaultChecked={upFrontPayment} onChange={handleChange} />
                         </div>
+
+                        <PlanData upFrontPayment={upFrontPayment} activePlan={activePlan} cloudSize={cloudSize} />
+
                         <div className="flex justify-center">
                             <button className="btn btn-primary-outline px-16" onClick={() => setStep(2)}>Next</button>
                         </div>

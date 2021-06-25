@@ -111,6 +111,10 @@ const SubscriptionCard = () => {
                     />
                     : step === 2 ?
                         <StepTwo
+                        activePlan={activePlan}
+                        cloudSize={cloudSize}
+                        upFrontPayment={upFrontPayment}
+
                             cardNumber={cardNumber}
                             setCardNumber={updateCardNumber}
                             cardExpirationDate={cardExpirationDate}

@@ -3,7 +3,8 @@ import { CloudSize, SubscriptionPlan } from "../../types";
 import CardHeader from "../CardHeader";
 import loader from "../../../images/loader.svg"
 import Loader from "../../../externals/components/Loader";
-var validator = require("email-validator");
+import PlanData from "../PlanData";
+import validator from "email-validator";
 
 type Props = {
     setStep: (step: number) => void,
@@ -53,6 +54,10 @@ const StepThree: React.FC<Props> = ({ setStep, cloudSize, activePlan, setEmail, 
                 </div>
                 {!acceptTerms ? <p className="text-xs text-red-500">This field is required</p> : null}
             </div>
+
+            <PlanData upFrontPayment={upFrontPayment} activePlan={activePlan} cloudSize={cloudSize} />
+
+
             <div className="flex justify-between">
                 <button className="btn btn-primary-outline px-16 mr-5" onClick={() => setStep(2)}>Back</button>
                 <button className="btn btn-primary px-16" onClick={confirmPlan} disabled={
