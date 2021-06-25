@@ -4,11 +4,11 @@ import CreditCardInput from 'react-credit-card-input';
 
 type Props = {
     cardNumber: string;
-    setCardNumber:  (event: React.ChangeEvent<HTMLInputElement>) => void;
+    setCardNumber: (event: React.ChangeEvent<HTMLInputElement>) => void;
     cardExpirationDate: string;
     setCardExpirationDate: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    cardSecurityCode:  string;
-    setCardSecurityCode:(event: React.ChangeEvent<HTMLInputElement>) => void;
+    cardSecurityCode: string;
+    setCardSecurityCode: (event: React.ChangeEvent<HTMLInputElement>) => void;
     setStep: (step: number) => void,
 }
 
@@ -32,13 +32,15 @@ const StepTwo: React.FC<Props> = ({ cardNumber, setCardNumber, setStep, cardExpi
 
                     fieldClassName="input"
                 />
-                <p className="text-xs text-red-500">All three fields are required</p>
+                {cardExpirationDate === ""
+                    || cardNumber === ""
+                    || cardSecurityCode === "" ? <p className="text-xs text-red-500">All three fields are required</p> : null}
             </div>
 
             <div className="flex justify-between">
                 <button className="btn btn-primary-outline px-16 mr-5" onClick={() => setStep(1)}>Back</button>
                 <button className="btn btn-primary px-16" onClick={() => setStep(3)} disabled={
-                    cardExpirationDate === "" 
+                    cardExpirationDate === ""
                     || cardNumber === ""
                     || cardSecurityCode === ""
                 }>Next</button>
