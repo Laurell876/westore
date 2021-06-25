@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react"
+// @ts-ignore
 import CreditCardInput from 'react-credit-card-input';
 import CardHeader from "../CardHeader";
 

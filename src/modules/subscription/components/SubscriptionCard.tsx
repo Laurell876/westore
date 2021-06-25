@@ -9,7 +9,7 @@ import { baseCloudSize, basePlan } from "../state";
 const subscriptionPlansEndpoint = "https://cloud-storage-prices-moberries.herokuapp.com/prices"
 
 const SubscriptionCard = () => {
-    const [step, setStep] = useState<number>(1);
+    const [step, setStep] = useState<number>(3);
 
     // STEP ONE
     const [plans, setPlans] = useState<Array<SubscriptionPlan>>([]);
@@ -22,6 +22,8 @@ const SubscriptionCard = () => {
     const [cardNumber, setCardNumber] = useState<string>("");
     const [cardExpirationDate, setCardExpirationDate] = useState<string>("");
     const [cardSecurityCode, setCardSecurityCode] = useState<string>("");
+
+    // STEP THREE
 
     // STEP ONE FUNCTIONS
     useEffect(() => {
@@ -83,7 +85,11 @@ const SubscriptionCard = () => {
                     setCardSecurityCode={updateCardSecurityCode}
                     setStep={setStep}
 
-                    /> : <StepThree />}
+                    /> : <StepThree 
+                    setStep={setStep}
+                    activePlan={activePlan}
+                    cloudSize={cloudSize}
+                     />}
             </div>
         </div>
     )
