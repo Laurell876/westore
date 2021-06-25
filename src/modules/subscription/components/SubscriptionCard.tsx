@@ -23,9 +23,7 @@ const SubscriptionCard = () => {
 
     const selectPlan = (plan:SubscriptionPlan) => {
         setActivePlan(plan);
-        console.log(activePlan);
     }
-
 
     return (
         <div className="backdrop">
