@@ -57,6 +57,11 @@
   color: #333333;
 }
 
+.input-field {
+  border: 2px solid #90D7FF;
+  @apply px-2 py-2;
+}
+
 @media only screen and (max-width: 768px) {
   .sub-card {
     width: 100vw;

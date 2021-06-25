@@ -4,15 +4,18 @@
   height: 40px;
   letter-spacing: 2px;
   @apply uppercase font-bold;
-
 }
 
 .btn-primary {
-    background: #90D7FF;
-    color:white;
+  background: #90d7ff;
+  color: white;
 }
 
 .btn-primary-outline {
-    border: 2px solid #90D7FF;
-    color:#90D7FF;
+  border: 2px solid #90d7ff;
+  color: #90d7ff;
+}
+
+button[disabled] {
+  opacity: 0.3;
 }

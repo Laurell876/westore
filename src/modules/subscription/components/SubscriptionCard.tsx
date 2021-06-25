@@ -19,10 +19,11 @@ const SubscriptionCard = () => {
     const [loading, setLoading] = useState<boolean>(true);
 
     // STEP TWO
-    const [cardNumber, setCardNumber] = useState<number>();
-    const [cardExpirationDate, setCardExpirationDate] = useState<Date>(new Date());
-    const [cardSecurityCode, setCardSecurityCode] = useState<number>();
+    const [cardNumber, setCardNumber] = useState<string>("");
+    const [cardExpirationDate, setCardExpirationDate] = useState<string>("");
+    const [cardSecurityCode, setCardSecurityCode] = useState<string>("");
 
+    // STEP ONE FUNCTIONS
     useEffect(() => {
         fetch(subscriptionPlansEndpoint).then(data => {
             data.json().then(jsonData => {
@@ -44,6 +45,19 @@ const SubscriptionCard = () => {
         setUpFrontPayment(upfront);
     }
 
+    // STEP TWO FUNCTIONS
+    const updateCardNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setCardNumber(event.target.value)
+    }
+    
+    const updateCardExpirationDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setCardExpirationDate(event.target.value);
+    }
+    
+    const updateCardSecurityCode = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setCardSecurityCode(event.target.value);
+    }
+
     return (
         <div className="backdrop">
             <div className="sub-card card">
@@ -62,11 +76,11 @@ const SubscriptionCard = () => {
                     : step === 2 ? 
                     <StepTwo 
                     cardNumber={cardNumber} 
-                    setCardNumber={setCardNumber}
+                    setCardNumber={updateCardNumber}
                     cardExpirationDate={cardExpirationDate}
-                    setCardExpirationDate={setCardExpirationDate}
+                    setCardExpirationDate={updateCardExpirationDate}
                     cardSecurityCode={cardSecurityCode}
-                    setCardSecurityCode={setCardSecurityCode}
+                    setCardSecurityCode={updateCardSecurityCode}
                     setStep={setStep}
 
                     /> : <StepThree />}
