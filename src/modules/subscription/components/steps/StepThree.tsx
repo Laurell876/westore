@@ -44,7 +44,7 @@ const StepThree: React.FC<Props> = ({ setStep, cloudSize, activePlan, setEmail, 
             <div className="my-5">
                 <input value={email} onChange={setEmail} className="input-field mt-5 w-full" type="text" placeholder="testuser@test.com" />
                 {email === "" ? <p className="text-xs text-red-500">This field is required</p> : null}
-                {!validator.validate(email) && email !== "" ? <p className="text-xs text-red-500">Please enter a valid email</p> : null}
+                {!validator.validate(email) && email === "" ? <p className="text-xs text-red-500">Please enter a valid email</p> : null}
             </div>
 
             <div className="my-5">
