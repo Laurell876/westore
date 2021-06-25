@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React, { useRef, useEffect } from "react"
 import { CloudSize, SubscriptionPlan } from "../../types";
 import SubscriptionPlanCard from "../SubscriptionPlanCard"
 import Select from 'react-select'
@@ -15,7 +15,8 @@ type Props = {
     upFrontPayment: boolean,
     setUpFront: (upfront: boolean) => void,
     setStep: (step: number) => void,
-    loading: boolean
+    loading: boolean,
+    loadPlans: () => void
 }
 
 const dropdownOptions: Array<CloudSize> = [
@@ -25,20 +26,24 @@ const dropdownOptions: Array<CloudSize> = [
 ]
 
 
-const StepOne: React.FC<Props> = ({ plans, callback, activePlan, cloudSize, selectSize, upFrontPayment, setUpFront, setStep, loading }) => {
+const StepOne: React.FC<Props> = ({ plans, callback, activePlan, cloudSize, selectSize, upFrontPayment, setUpFront, setStep, loading, loadPlans }) => {
     const upfrontRef = useRef<HTMLInputElement>(null);
 
     const handleChange = () => {
         setUpFront(upfrontRef.current!.checked)
     }
+    
 
+    useEffect(()=>{
+        loadPlans();
+    },[])
 
     return (
         <div>
             <CardHeader />
             <p className="card-subtitle text-center max-w-xs mx-auto">Please choose a plan that works for you and your team</p>
             {
-                !loading ?
+                !loading && plans ?
                     <>
                         <div className="cards flex flex-col md:flex-row justify-between">
                             {

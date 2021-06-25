@@ -41,25 +41,29 @@ const SubscriptionCard = () => {
                 cardSecurityCode,
                 setCardExpirationDate,
                 acceptTerms,
-                total: upFrontPayment ? (activePlan.price_usd_per_gb * cloudSize.value) * 0.9 :  activePlan.price_usd_per_gb * cloudSize.value
+                total: upFrontPayment ? (activePlan.price_usd_per_gb * cloudSize.value) * 0.9 : activePlan.price_usd_per_gb * cloudSize.value
             })
         }).then(data => {
+            setLoading(false);
             data.json().then(jsonData => {
                 setPlans(jsonData.subscription_plans);
-                setLoading(false);
             })
         })
     }
 
     // STEP ONE FUNCTIONS
     useEffect(() => {
+        loadPlans();
+    }, []);
+
+    const loadPlans = () => {
         fetch(subscriptionPlansEndpoint).then(data => {
             data.json().then(jsonData => {
                 setPlans(jsonData.subscription_plans);
                 setLoading(false);
             })
         })
-    }, []);
+    }
 
     const selectPlan = (plan: SubscriptionPlan) => {
         setActivePlan(plan);
@@ -108,12 +112,13 @@ const SubscriptionCard = () => {
                         setUpFront={setUpFront}
                         setStep={setStep}
                         loading={loading}
+                        loadPlans={loadPlans}
                     />
                     : step === 2 ?
                         <StepTwo
-                        activePlan={activePlan}
-                        cloudSize={cloudSize}
-                        upFrontPayment={upFrontPayment}
+                            activePlan={activePlan}
+                            cloudSize={cloudSize}
+                            upFrontPayment={upFrontPayment}
 
                             cardNumber={cardNumber}
                             setCardNumber={updateCardNumber}
