@@ -41,17 +41,16 @@ const StepOne: React.FC<Props> = ({ plans, callback, activePlan, cloudSize, sele
             </div>
             <p className="card-subtitle text-center max-w-xs mx-auto">Please choose a plan that works for you and your team</p>
             {
-
                 !loading ?
                     <>
-                        <div className="cards flex flex-col md:flex-row justify-between my-16">
+                        <div className="cards flex flex-col md:flex-row justify-between">
                             {
                                 plans.map(plan => (
                                     <SubscriptionPlanCard key={plan.duration_months} plan={plan} activePlan={activePlan} callback={callback} />
                                 ))
                             }
                         </div>
-                        <div className="flex items-center">
+                        <div className="flex items-center mt-10">
                             <p className="paragraph w-full">Amount of gigabytes in a cloud</p>
                             <div className="w-full">
 

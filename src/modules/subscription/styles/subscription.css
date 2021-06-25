@@ -1,11 +1,5 @@
 @import "./buttons.css";
-
-.backdrop {
-  background: rgba(0, 0, 0, 0.5);
-  top: 0;
-  left: 0;
-  @apply z-20 flex items-center justify-center absolute h-screen w-full;
-}
+@import "./scrollbar.css";
 
 .card {
   background: #ffffff;
@@ -46,7 +40,6 @@
 .card.active .circle {
   background: white;
   border: solid 1px white;
-
 }
 
 .card.active .card-title {
@@ -64,7 +57,6 @@
   color: #333333;
 }
 
-
 @media only screen and (max-width: 768px) {
   .sub-card {
     width: 100vw;
@@ -74,5 +66,14 @@
 
   .plan-card {
     width: 100%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    @apply z-20 flex items-center justify-center absolute h-screen w-full;
   }
 }

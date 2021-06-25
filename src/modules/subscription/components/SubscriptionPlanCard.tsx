@@ -7,7 +7,7 @@ type Props = {
     callback: (plan: SubscriptionPlan) => void,
 }
 
-const baseClasses = "plan-card card text-center cursor-pointer mb-10 md:mb-0";
+const baseClasses = "plan-card card text-center cursor-pointer mt-10 md:mb-0";
 
 const SubscriptionPlanCard: React.FC<Props> = ({ plan, activePlan, callback }) => {
     const [classes, setClasses] = useState<string>(baseClasses)
