@@ -7,10 +7,6 @@
   @apply z-20 flex items-center justify-center absolute h-screen w-full;
 }
 
-.sub-card {
-  height: 720px;
-}
-
 .card {
   background: #ffffff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.16);
