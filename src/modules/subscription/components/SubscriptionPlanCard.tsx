@@ -6,11 +6,14 @@ type Props = {
     activePlan: SubscriptionPlan,
     callback: (plan: SubscriptionPlan) => void,
 }
+
+const baseClasses = "plan-card card text-center cursor-pointer mb-10 md:mb-0";
+
 const SubscriptionPlanCard: React.FC<Props> = ({ plan, activePlan, callback }) => {
-    const [classes, setClasses] = useState<string>("card text-center cursor-pointer")
+    const [classes, setClasses] = useState<string>(baseClasses)
     
     useEffect(()=>{
-        if(plan.duration_months === 6) setClasses("card text-center cursor-pointer mx-5");
+        if(plan.duration_months === 6) setClasses(`${baseClasses} md:mx-5`);
     },[])
 
     return (

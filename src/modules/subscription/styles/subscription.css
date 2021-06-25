@@ -64,3 +64,15 @@
   color: #333333;
 }
 
+
+@media only screen and (max-width: 768px) {
+  .sub-card {
+    width: 100vw;
+    min-height: 100vh;
+    border-radius: 0;
+  }
+
+  .plan-card {
+    width: 100%;
+  }
+}

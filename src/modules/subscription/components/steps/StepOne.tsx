@@ -44,7 +44,7 @@ const StepOne: React.FC<Props> = ({ plans, callback, activePlan, cloudSize, sele
 
                 !loading ?
                     <>
-                        <div className="cards flex justify-between my-16">
+                        <div className="cards flex flex-col md:flex-row justify-between my-16">
                             {
                                 plans.map(plan => (
                                     <SubscriptionPlanCard key={plan.duration_months} plan={plan} activePlan={activePlan} callback={callback} />
