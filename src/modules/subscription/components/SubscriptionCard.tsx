@@ -13,11 +13,14 @@ const SubscriptionCard = () => {
     const [plans, setPlans] = useState<Array<SubscriptionPlan>>([]);
     const [activePlan, setActivePlan] = useState<SubscriptionPlan>(basePlan);
     const [cloudSize, setCloudSize] = useState<CloudSize>(baseCloudSize);
+    const [upFrontPayment, setUpFrontPayment] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         fetch(subscriptionPlansEndpoint).then(data => {
             data.json().then(jsonData => {
                 setPlans(jsonData.subscription_plans);
+                setLoading(false);
             })
         })
     }, []);
@@ -26,15 +29,29 @@ const SubscriptionCard = () => {
         setActivePlan(plan);
     }
 
-    const selectSize = (size: CloudSize) => {
-        setCloudSize(size);
+    const selectSize = (size: CloudSize | null) => {
+        if(size) setCloudSize(size);
+    }
+
+    const setUpFront = (upfront: boolean) => {
+        setUpFrontPayment(upfront);
     }
 
     return (
         <div className="backdrop">
-            <div className="card">
+            <div className="sub-card card">
                 {step === 1
-                    ? <StepOne plans={plans} callback={selectPlan} activePlan={activePlan} cloudSize={cloudSize} selectSize={selectSize} />
+                    ? <StepOne 
+                    plans={plans} 
+                    callback={selectPlan} 
+                    activePlan={activePlan} 
+                    cloudSize={cloudSize} 
+                    selectSize={selectSize} 
+                    upFrontPayment={upFrontPayment}
+                    setUpFront={setUpFront}
+                    setStep={setStep}
+                    loading={loading}
+                    />
                     : step === 1 ? <StepTwo /> : <StepThree />}
             </div>
         </div>

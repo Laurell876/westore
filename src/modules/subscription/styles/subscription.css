@@ -1,8 +1,14 @@
+@import "./buttons.css";
+
 .backdrop {
   background: rgba(0, 0, 0, 0.5);
   top: 0;
   left: 0;
   @apply z-20 flex items-center justify-center absolute h-screen w-full;
+}
+
+.sub-card {
+  height: 720px;
 }
 
 .card {
