@@ -30,6 +30,7 @@ const StepOne: React.FC<Props> = ({ plans, callback, activePlan, cloudSize, sele
     const handleChange = () => {
         setUpFront(upfrontRef.current!.checked)
     }
+    
 
     return (
         <div>

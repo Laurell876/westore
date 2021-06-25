@@ -25,6 +25,7 @@ const SubscriptionCard = () => {
 
     // STEP THREE
     const [email, setEmail] = useState<string>("");
+    const [acceptTerms, setAcceptTerms] = useState<boolean>(false);
 
     // STEP ONE FUNCTIONS
     useEffect(() => {
@@ -65,6 +66,13 @@ const SubscriptionCard = () => {
     const updateEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
     }
+    const updateAcceptTerms= (accept: boolean) => {
+        setAcceptTerms(accept);
+    }
+
+    const confirmPlan = () => {
+        const endpoint = "https://httpbin.org/post";
+    }
 
     return (
         <div className="backdrop">
@@ -97,6 +105,8 @@ const SubscriptionCard = () => {
                     cloudSize={cloudSize}
                     setEmail={updateEmail}
                     email={email}
+                    updateAcceptTerms={updateAcceptTerms}
+                    acceptTerms={acceptTerms}
                      />}
             </div>
         </div>
