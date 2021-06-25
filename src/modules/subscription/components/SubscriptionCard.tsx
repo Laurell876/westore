@@ -9,7 +9,7 @@ import { baseCloudSize, basePlan } from "../state";
 const subscriptionPlansEndpoint = "https://cloud-storage-prices-moberries.herokuapp.com/prices"
 
 const SubscriptionCard = () => {
-    const [step, setStep] = useState<number>(3);
+    const [step, setStep] = useState<number>(1);
 
     // STEP ONE
     const [plans, setPlans] = useState<Array<SubscriptionPlan>>([]);
@@ -27,6 +27,30 @@ const SubscriptionCard = () => {
     const [email, setEmail] = useState<string>("");
     const [acceptTerms, setAcceptTerms] = useState<boolean>(false);
 
+    const confirmPlan = () => {
+        setLoading(true);
+        const endpoint = "https://httpbin.org/post";
+        fetch(endpoint, {
+            method: 'POST',
+            body: JSON.stringify({
+                email,
+                activePlan,
+                cloudSize,
+                upFrontPayment,
+                cardNumber,
+                cardSecurityCode,
+                setCardExpirationDate,
+                acceptTerms,
+                total: upFrontPayment ? (activePlan.price_usd_per_gb * cloudSize.value) * 0.9 :  activePlan.price_usd_per_gb * cloudSize.value
+            })
+        }).then(data => {
+            data.json().then(jsonData => {
+                setPlans(jsonData.subscription_plans);
+                setLoading(false);
+            })
+        })
+    }
+
     // STEP ONE FUNCTIONS
     useEffect(() => {
         fetch(subscriptionPlansEndpoint).then(data => {
@@ -37,12 +61,12 @@ const SubscriptionCard = () => {
         })
     }, []);
 
-    const selectPlan = (plan:SubscriptionPlan) => {
+    const selectPlan = (plan: SubscriptionPlan) => {
         setActivePlan(plan);
     }
 
     const selectSize = (size: CloudSize | null) => {
-        if(size) setCloudSize(size);
+        if (size) setCloudSize(size);
     }
 
     const setUpFront = (upfront: boolean) => {
@@ -53,11 +77,11 @@ const SubscriptionCard = () => {
     const updateCardNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCardNumber(event.target.value)
     }
-    
+
     const updateCardExpirationDate = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCardExpirationDate(event.target.value);
     }
-    
+
     const updateCardSecurityCode = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCardSecurityCode(event.target.value);
     }
@@ -66,48 +90,48 @@ const SubscriptionCard = () => {
     const updateEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
     }
-    const updateAcceptTerms= (accept: boolean) => {
+    const updateAcceptTerms = (accept: boolean) => {
         setAcceptTerms(accept);
-    }
-
-    const confirmPlan = () => {
-        const endpoint = "https://httpbin.org/post";
     }
 
     return (
         <div className="backdrop">
             <div className="sub-card card">
                 {step === 1
-                    ? <StepOne 
-                    plans={plans} 
-                    callback={selectPlan} 
-                    activePlan={activePlan} 
-                    cloudSize={cloudSize} 
-                    selectSize={selectSize} 
-                    upFrontPayment={upFrontPayment}
-                    setUpFront={setUpFront}
-                    setStep={setStep}
-                    loading={loading}
+                    ? <StepOne
+                        plans={plans}
+                        callback={selectPlan}
+                        activePlan={activePlan}
+                        cloudSize={cloudSize}
+                        selectSize={selectSize}
+                        upFrontPayment={upFrontPayment}
+                        setUpFront={setUpFront}
+                        setStep={setStep}
+                        loading={loading}
                     />
-                    : step === 2 ? 
-                    <StepTwo 
-                    cardNumber={cardNumber} 
-                    setCardNumber={updateCardNumber}
-                    cardExpirationDate={cardExpirationDate}
-                    setCardExpirationDate={updateCardExpirationDate}
-                    cardSecurityCode={cardSecurityCode}
-                    setCardSecurityCode={updateCardSecurityCode}
-                    setStep={setStep}
+                    : step === 2 ?
+                        <StepTwo
+                            cardNumber={cardNumber}
+                            setCardNumber={updateCardNumber}
+                            cardExpirationDate={cardExpirationDate}
+                            setCardExpirationDate={updateCardExpirationDate}
+                            cardSecurityCode={cardSecurityCode}
+                            setCardSecurityCode={updateCardSecurityCode}
+                            setStep={setStep}
 
-                    /> : <StepThree 
-                    setStep={setStep}
-                    activePlan={activePlan}
-                    cloudSize={cloudSize}
-                    setEmail={updateEmail}
-                    email={email}
-                    updateAcceptTerms={updateAcceptTerms}
-                    acceptTerms={acceptTerms}
-                     />}
+                        /> : <StepThree
+                            setStep={setStep}
+                            activePlan={activePlan}
+                            cloudSize={cloudSize}
+                            setEmail={updateEmail}
+                            email={email}
+                            updateAcceptTerms={updateAcceptTerms}
+                            acceptTerms={acceptTerms}
+                            confirmPlan={confirmPlan}
+                            loading={loading}
+                            upFrontPayment={upFrontPayment}
+
+                        />}
             </div>
         </div>
     )

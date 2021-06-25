@@ -1,6 +1,8 @@
 import React, { useRef } from "react"
 import { CloudSize, SubscriptionPlan } from "../../types";
 import CardHeader from "../CardHeader";
+import loader from "../../../images/loader.svg"
+import Loader from "../../../externals/components/Loader";
 var validator = require("email-validator");
 
 type Props = {
@@ -11,9 +13,12 @@ type Props = {
     email: string;
     updateAcceptTerms: (accept: boolean) => void;
     acceptTerms: boolean;
+    confirmPlan: () => void;
+    loading: boolean;
+    upFrontPayment: boolean
 }
 
-const StepThree: React.FC<Props> = ({ setStep, cloudSize, activePlan, setEmail, email, updateAcceptTerms, acceptTerms }) => {
+const StepThree: React.FC<Props> = ({ setStep, cloudSize, activePlan, setEmail, email, updateAcceptTerms, acceptTerms, confirmPlan, loading, upFrontPayment }) => {
     const termsRef = useRef<HTMLInputElement>(null);
 
     const handleChange = () => {
@@ -33,7 +38,7 @@ const StepThree: React.FC<Props> = ({ setStep, cloudSize, activePlan, setEmail, 
                 <h3 className="card-title">${activePlan.price_usd_per_gb}/<span className="text-xs">gb</span></h3>
                 <h3 className="card-subtitle">{cloudSize.value} GB</h3>
                 <h3 className="card-subtitle">{activePlan.duration_months} Months</h3>
-                <h3 className="card-subtitle">${activePlan.price_usd_per_gb * cloudSize.value}</h3>
+                <h3 className="card-subtitle">${upFrontPayment ? (activePlan.price_usd_per_gb * cloudSize.value) * 0.9 : activePlan.price_usd_per_gb * cloudSize.value}</h3>
             </div>
             <div className="my-5">
                 <input value={email} onChange={setEmail} className="input-field mt-5 w-full" type="text" placeholder="testuser@test.com" />
@@ -50,10 +55,12 @@ const StepThree: React.FC<Props> = ({ setStep, cloudSize, activePlan, setEmail, 
             </div>
             <div className="flex justify-between">
                 <button className="btn btn-primary-outline px-16 mr-5" onClick={() => setStep(2)}>Back</button>
-                <button className="btn btn-primary px-16" onClick={() => setStep(3)} disabled={
+                <button className="btn btn-primary px-16" onClick={confirmPlan} disabled={
                     !acceptTerms
                     || email === ""
-                }>Confirm</button>
+                }>
+                    {loading ? <Loader /> : "Confirm"}
+                </button>
             </div>
         </div>
     )
