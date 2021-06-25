@@ -24,6 +24,7 @@ const SubscriptionCard = () => {
     const [cardSecurityCode, setCardSecurityCode] = useState<string>("");
 
     // STEP THREE
+    const [email, setEmail] = useState<string>("");
 
     // STEP ONE FUNCTIONS
     useEffect(() => {
@@ -60,6 +61,11 @@ const SubscriptionCard = () => {
         setCardSecurityCode(event.target.value);
     }
 
+    // STEP THREE FUNCTIONS
+    const updateEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(event.target.value);
+    }
+
     return (
         <div className="backdrop">
             <div className="sub-card card">
@@ -89,6 +95,8 @@ const SubscriptionCard = () => {
                     setStep={setStep}
                     activePlan={activePlan}
                     cloudSize={cloudSize}
+                    setEmail={updateEmail}
+                    email={email}
                      />}
             </div>
         </div>
