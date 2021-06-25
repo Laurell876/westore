@@ -10,11 +10,18 @@ const subscriptionPlansEndpoint = "https://cloud-storage-prices-moberries.heroku
 
 const SubscriptionCard = () => {
     const [step, setStep] = useState<number>(1);
+
+    // STEP ONE
     const [plans, setPlans] = useState<Array<SubscriptionPlan>>([]);
     const [activePlan, setActivePlan] = useState<SubscriptionPlan>(basePlan);
     const [cloudSize, setCloudSize] = useState<CloudSize>(baseCloudSize);
     const [upFrontPayment, setUpFrontPayment] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(true);
+
+    // STEP TWO
+    const [cardNumber, setCardNumber] = useState<number>();
+    const [cardExpirationDate, setCardExpirationDate] = useState<Date>(new Date());
+    const [cardSecurityCode, setCardSecurityCode] = useState<number>();
 
     useEffect(() => {
         fetch(subscriptionPlansEndpoint).then(data => {
@@ -52,7 +59,17 @@ const SubscriptionCard = () => {
                     setStep={setStep}
                     loading={loading}
                     />
-                    : step === 1 ? <StepTwo /> : <StepThree />}
+                    : step === 2 ? 
+                    <StepTwo 
+                    cardNumber={cardNumber} 
+                    setCardNumber={setCardNumber}
+                    cardExpirationDate={cardExpirationDate}
+                    setCardExpirationDate={setCardExpirationDate}
+                    cardSecurityCode={cardSecurityCode}
+                    setCardSecurityCode={setCardSecurityCode}
+                    setStep={setStep}
+
+                    /> : <StepThree />}
             </div>
         </div>
     )
